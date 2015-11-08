@@ -10,7 +10,7 @@ import android.widget.EditText;
 public class MainActivity extends AppCompatActivity  implements View.OnClickListener{
 
     Button bLogout;
-    EditText etName, etAge,etUsername;
+    EditText etName;
     UserLocalStore userLocalStore;
 
     @Override
@@ -19,8 +19,6 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         setContentView(R.layout.activity_main);
 
         etName = (EditText) findViewById(R.id.etName);
-        etAge = (EditText) findViewById(R.id.etAge);
-        etUsername = (EditText) findViewById(R.id.etUsername);
 
         bLogout = (Button) findViewById(R.id.bLogout);
 
@@ -33,7 +31,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
     protected void onStart() {
         super.onStart();
         if (authenticate() == true) {
-            displayUserDetails();
+            displayUserName();
         }else{
             startActivity(new Intent(MainActivity.this,login.class));
         }
@@ -43,12 +41,11 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         return userLocalStore.getUserLoggedIn();
     }
 
-    private  void  displayUserDetails(){
+    private  void  displayUserName(){
         User user = userLocalStore.getLoggedInUser();
 
-        etUsername.setText(user.username);
         etName.setText(user.name);
-        etAge.setText(user.age + "");
+        ;
     }
     @Override
         public void onClick(View v) {
